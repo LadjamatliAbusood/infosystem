@@ -1,0 +1,125 @@
+<html lang="en">
+<head>
+    <!-- Common head elements go here -->
+    <title>Search Result - Student Information System</title>
+    
+	<link href="/static/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/static/css/main.css" rel="stylesheet">
+</head>
+<body>
+    <nav class="navbar navbar-default">
+        <div class="container">
+          <!-- Brand and toggle get grouped for better mobile display -->
+          <div class="navbar-header">
+      
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+          </button>
+      
+            <a class="navbar-brand" href="">Student Information System</a>
+          </div>
+      
+          <!-- Collect the nav links, forms, and other content for toggling -->
+          <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      
+      
+            <form class="navbar-form navbar-right" action="{% url 'search_result' %}" method="GET">
+      
+              <div class="search-area">
+                <div class="form-group">
+      
+                  <div class="search-wrap">
+      
+                    <label for="searchbox" class="sr-only">Search:</label>
+                    <input type="text" class="form-control" name="searchbox" id="searchbox" placeholder="Search student name here" required autocomplete="off">
+                    
+                    <div class="search-results hide"></div>
+      
+                  </div>
+                  
+      
+                </div>
+                <input type="submit" name="search" id="search-btn" value="Search" class="btn btn-default">
+      
+              </div>
+              {% if user.is_authenticated %}
+                  <div class="welcome">Welcome, {{ user.username }}!</div>
+              {% else %}
+                  <div class="welcome">Not authenticated</div>
+              {% endif %}
+
+              <!-- <div class="welcome">Welcome, <a href=''></a>{{ username }}!</div> -->
+      
+              <a href="{% url 'logout' %}">Log Out <span class="glyphicon glyphicon-off" aria-hidden="true"></span></a>
+      
+            </form>
+      
+           
+      
+            
+      
+      
+          </div><!-- /.navbar-collapse -->
+        </div><!-- /.container-fluid -->
+      </nav>
+
+    <div class="container">
+   
+
+ 
+
+    {% if search_results %}
+        {% for student in search_results %}
+          
+
+            <div class="result-box box-left">
+                <div class='info'>
+                    <strong></strong> <span><img src="{{ student.filenameimage.url }}" alt="Student Image" width='100px'></span></div>
+                  <div class='info'><strong>Student No:</strong> <span> {{ student.studentno }}</span></div>
+                  <div class='info'><strong>Student Name:</strong> <span> {{ student.lastname }},&nbsp;{{student.firstname }}&nbsp;{{ student.middlename }}.</span></div>
+                  <div class='info'><strong>Course:</strong> <span>{{ student.course }}</span></div>
+                  <div class='info'><strong>Year Level:</strong> <span>{{ student.yrlevel }}</span></div>
+                  <div class='info'><strong>Section:</strong> <span> {{ student.section }}</span></div>
+                  
+                </div>
+        {% endfor %}
+    {% else %}
+        <p>No results found.</p>
+    {% endif %}
+    <strong class="title" style="color:white">Search results for "{{ search_query }}".</strong><br><br>
+    <a class="btn btn-success" href="{% url 'profile' %}">Go back to Home</a>
+
+    </div>
+</body>
+</html>
+
+<style>
+
+
+body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  background: linear-gradient(45deg, #49a09d, #5f2c82);
+  font-family: sans-serif;
+  font-weight: 100;
+}
+
+.container {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+span{
+    color:white
+}
+
+  </style>
+    

@@ -1,0 +1,185 @@
+
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Student Information</title>
+        <link rel="stylesheet"  href="/static/css/main.css">
+        <link rel="stylesheet" href="/static/css/bootstrap.min.css" >
+    </head>
+    <style>
+
+
+        body {
+          height: 100%;
+        }
+        
+        body {
+          margin: 0;
+          background: linear-gradient(45deg, #49a09d, #5f2c82);
+          font-family: sans-serif;
+          font-weight: 100;
+        }
+        
+        .container {
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%);
+        }
+        
+        table {
+          width: 800px;
+          border-collapse: collapse;
+          overflow: hidden;
+          box-shadow: 0 0 20px rgba(0,0,0,0.1);
+        }
+        
+        th,
+        td {
+          padding: 15px;
+          background-color: rgba(255,255,255,0.2);
+          color: #fff;
+        }
+        
+        th {
+          text-align: left;
+        }
+        
+        thead {
+          th {
+            background-color: #55608f;
+          }
+        }
+        
+        tbody {
+          tr {
+            &:hover {
+              background-color: rgba(255,255,255,0.3);
+            }
+          }
+          td {
+            position: relative;
+            &:hover {
+              &:before {
+                content: "";
+                position: absolute;
+                left: 0;
+                right: 0;
+                top: -9999px;
+                bottom: -9999px;
+                background-color: rgba(255,255,255,0.2);
+                z-index: -1;
+              }
+            }
+          }
+        }
+        
+          </style>
+    <body>
+  
+      <nav class="navbar navbar-default">
+        <div class="container">
+          <!-- Brand and toggle get grouped for better mobile display -->
+          <div class="navbar-header">
+      
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+          </button>
+      
+            <a class="navbar-brand" href="">Student Information System</a>
+          </div>
+      
+          <!-- Collect the nav links, forms, and other content for toggling -->
+          <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      
+      
+            <form class="navbar-form navbar-right" action="{% url 'search_result' %}" method="GET">
+      
+              <div class="search-area">
+                <div class="form-group">
+      
+                  <div class="search-wrap">
+      
+                    <label for="searchbox" class="sr-only">Search:</label>
+                    <input type="text" class="form-control" name="searchbox" id="searchbox" placeholder="Search student name here" required autocomplete="off">
+                    
+                    <div class="search-results hide"></div>
+      
+                  </div>
+                  
+      
+                </div>
+                <input type="submit" name="search" id="search-btn" value="Search" class="btn btn-default">
+      
+              </div>
+              {% if user.is_authenticated %}
+                  <div class="welcome">Welcome, {{ user.username }}!</div>
+              {% else %}
+                  <div class="welcome">Not authenticated</div>
+              {% endif %}
+
+              <!-- <div class="welcome">Welcome, <a href=''></a>{{ username }}!</div> -->
+      
+              <a href="{% url 'logout' %}">Log Out <span class="glyphicon glyphicon-off" aria-hidden="true"></span></a>
+      
+            </form>
+      
+           
+      
+            
+      
+      
+          </div><!-- /.navbar-collapse -->
+        </div><!-- /.container-fluid -->
+      </nav>
+
+
+      <section class="container">
+
+        <div class="center ">
+          <strong>My Profile</strong>
+        </div>
+    
+        <div class="profile-box box-left">
+
+        
+          <div class='info'><span><img src="{% static user_details.filenameimage %}" width='100px' ></span></div>
+              <div class='info'><strong>Student No:</strong> <span>{{ user_details.studentno }}</span></div>
+              <div class='info'><strong>Student Name:</strong> <span>{{ user_details.lastname }},&nbsp;{{ user_details.firstname }}&nbsp;{{ user_details.middlename }}.</span></div>
+              <div class='info'><strong>Course:</strong> <span>{{ user_details.course }}</span></div>
+             <div class='info'><strong>Year Level:</strong> <span>{{ user_details.yrlevel }}</span></div>
+              <div class='info'><strong>Section:</strong> <span>{{ user_details.section }}</span></div>
+         
+
+              <!-- {% load static %}
+
+              {% if image_url %}
+                  <p>Image Full Path: {{ image_url }}</p>
+                  <img src="{% static image_url %}" alt="{{ username }}'s Image" width="100">
+              {% endif %} -->
+
+          <div class="boxes">
+          <a class="btn btn-primary" href="{% url 'classmate_list' %}">Classmate List</a>
+            <a class="btn btn-primary" href="{% url 'edit_profile' %}">Edit Profile</a>
+            <a class="btn btn-success" href="{% url 'changepassword' %}">Change Password</a>
+    
+          <style>
+            
+            </style>
+          </div>
+    
+          
+        </div>
+    
+      </section>
+    
+
+
+</body>
+</html>
+

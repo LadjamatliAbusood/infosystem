@@ -1,0 +1,47 @@
+<!-- templates/all_students.html -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>All Students</title>
+</head>
+<body>
+
+    <h2>All Students</h2>
+   
+    {% if students %}
+        <table border="1">
+            <thead>
+                <tr>
+                    <th>Student No</th>
+                    <th>First Name</th>
+                    <th>Last Name</th>
+                    <th>Middle Name</th>
+                    <th>Course</th>
+                    <th>Year Level</th>
+                    <th>Section</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for student in students %}
+                    <tr>
+                        <td>{{ student.studentno }}</td>
+                        <td>{{ student.firstname }}</td>
+                        <td>{{ student.lastname }}</td>
+                        <td>{{ student.middlename }}</td>
+                        <td>{{ student.course }}</td>
+                        <td>{{ student.yrlevel }}</td>
+                        <td>{{ student.section }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <p>No students found.</p>
+    {% endif %}
+
+</body>
+</html>

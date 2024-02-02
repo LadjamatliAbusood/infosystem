@@ -1,0 +1,37 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Common head elements go here -->
+    <title>{% block title %}My Website{% endblock %}</title>
+</head>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const searchForm = document.getElementById('search-form');
+
+        if (searchForm) {
+            searchForm.addEventListener('submit', function (event) {
+                event.preventDefault();
+
+                const searchbox = document.getElementById('searchbox');
+                const searchQuery = searchbox.value.trim();
+
+                if (searchQuery) {
+                    const redirectUrl = `/search/?searchbox=${encodeURIComponent(searchQuery)}`;
+                    window.location.href = redirectUrl;
+                }
+            });
+        }
+    });
+</script>
+<body>
+    <!-- Common header content goes here -->
+    {% block content %}{% endblock %}
+ 
+    {% if user.is_authenticated %}
+    <div class="welcome"><h1>Welcome, {{ user.username }}!</h1></div>
+{% endif %}
+
+    
+</body>
+</html>

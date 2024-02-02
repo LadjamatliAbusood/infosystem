@@ -1,0 +1,130 @@
+{% load static %}
+
+<html>
+<head>
+<style>
+    .ADDSTUDENT {
+        float: right;
+    }
+
+    html, body {
+        height: 100%;
+    }
+
+    body {
+        margin: 0;
+        background: linear-gradient(45deg, #49a09d, #5f2c82);
+        font-family: sans-serif;
+        font-weight: 100;
+    }
+
+    .container {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
+
+    table {
+        width: 800px;
+        border-collapse: collapse;
+        overflow: hidden;
+        box-shadow: 0 0 20px rgba(0,0,0,0.1);
+    }
+
+    th, td {
+        padding: 15px;
+        background-color: rgba(255,255,255,0.2);
+        color: #fff;
+    }
+
+    th {
+        text-align: left;
+    }
+
+    thead {
+        th {
+            background-color: #55608f;
+        }
+    }
+
+    tbody {
+        tr {
+            &:hover {
+                background-color: rgba(255,255,255,0.3);
+            }
+        }
+        td {
+            position: relative;
+            &:hover {
+                &:before {
+                    content: "";
+                    position: absolute;
+                    left: 0;
+                    right: 0;
+                    top: -9999px;
+                    bottom: -9999px;
+                    background-color: rgba(255,255,255,0.2);
+                    z-index: -1;
+                }
+            }
+        }
+    }
+</style>
+</head>
+<body>
+    
+
+  
+
+
+<div class="container">
+    
+
+    <form method="POST" action="">
+        {% if user.is_authenticated %}
+        <div class="welcome">Welcome, {{ user.username }}!</div>
+    {% endif %}
+   
+        <h2>Classmate Lists</h2>
+
+ 
+
+        {% if classmates %}
+        <table>
+            <thead>
+                <tr>
+                    <th>Student No</th>
+                    <th>First Name</th>
+                    <th>Last Name</th>
+                    <th>Middle Name</th>
+                    <th>Course</th>
+                    <th>Year Level</th>
+                    <th>Section</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for classmate in classmates %}
+                    <tr>
+                        <td>{{ classmate.studentno }}</td>
+                        <td>{{ classmate.firstname }}</td>
+                        <td>{{ classmate.lastname }}</td>
+                        <td>{{ classmate.middlename }}</td>
+                        <td>{{ classmate.course }}</td>
+                        <td>{{ classmate.yrlevel }}</td>
+                        <td>{{ classmate.section }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <p>No classmates found.</p>
+    {% endif %}
+
+        <br/>
+        <a class="btn btn-success" href="{% url 'profile' %}">Go back</a>
+    </form>
+
+</div>
+</body>
+</html>
